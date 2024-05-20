@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Customer Management</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+</head>
+<body class="container-fluid">
+    <h1>Customer Details Form</h1>
+    <div th:if="${message}" class="alert alert-success" role="alert">
+        <p th:text="${message}"></p>
+    </div>
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <p th:text="${errorMessage}"></p>
+    </div>
+    <form th:action="@{/customer}" th:object="${cust}" method="post" class="form-control">
+        <input type="hidden" name="action" th:value="${cust.id != null ? 'edit' : 'add'}" />
+        <input type="hidden" name="id" th:field="*{id}" />
+        <div class="mb-3">
+            <label for="name" class="form-label">Name:</label>
+            <input type="text" th:field="*{name}" class="form-control" id="name" />
+            <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email:</label>
+            <input type="email" th:field="*{email}" class="form-control" id="email" />
+            <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number:</label>
+            <input type="text" th:field="*{phone}" class="form-control" id="phone" />
+            <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input type="password" th:field="*{pass}" class="form-control" id="password" />
+            <p th:if="${#fields.hasErrors('pass')}" th:errors="*{pass}"></p>
+        </div>
+        <div class="mb-3">
+            <label for="address" class="form-label">Address:</label>
+            <input type="text" th:field="*{address}" class="form-control" id="address" />
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-danger">Reset</button>
+        </div>
+    </form>
+    <p>
+        <a href="/details" class="btn btn-link">View Customers</a>
+    </p>
+</body>
+</html>
